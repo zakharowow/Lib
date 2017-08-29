@@ -1,0 +1,266 @@
+body{ 
+    font-family: Verdana, Geneva, sans-serif;
+    background-color: #EEE;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    height: 100%; 
+
+} 
+
+.container{ 
+    width: 900px;
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    overflow-x: hidden;
+} 
+.header{ 
+    height:200px;
+} 
+.middle{ 
+    width: 900px;
+    float:left;
+} 
+.left_menu{ 
+    float: left;
+    width: 175px;
+    padding-bottom: 10px;
+    margin: 20px;
+} 
+.content{ 
+    width: 685px;
+    float: left;
+    margin-top: 20px;
+} 
+#id_190092{ 
+    color: brown;
+    margin-bottom: 10px;
+} 
+ul{ 
+    list-style-type: none;
+    padding: 0;
+    margin-left: 0;
+} 
+#id_190094{
+    margin-bottom: 10px;
+    color: brown;
+    float: left; 
+} 
+#id_190095{ 
+    float: left; 
+} 
+#id_190096{ 
+    float: left; 
+    margin-bottom: 20px; 
+    margin-right: 20px; 
+    width: 195px;
+    height:400px;
+} 
+#id_190099{ 
+    font-weight:bold;
+    color: blue;
+    margin-bottom: 20px;
+    height:40px;
+} 
+#id_190100{ 
+    margin-bottom: 10px; 
+} 
+#id_190101{ 
+} 
+
+.logo{ 
+    text-align: left;
+    padding: 20px;
+    float: left; 
+} 
+.search_div{
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: left;
+    vertical-align: middle;
+    width: 840px;
+    float:left;
+    background-color: #808080;
+    padding: 10px; 
+} 
+.search_string{ 
+    float: left;
+    margin-bottom: 0px; 
+    margin-left: 0px; 
+    margin-right: 10px; 
+    margin-top: 0px; 
+    width: 670px; 
+} 
+
+#id_190130{ 
+    float: left; 
+    text-align: center; 
+    width: 100px; 
+} 
+.description{ 
+    float: left;
+    text-align: left;
+    padding-top: 50px;
+} 
+li{
+    margin-bottom: 15px;
+}
+.searchform{
+    float:right;
+    width: 900px;
+    text-align: right;
+}
+
+
+.welcome{
+    text-align: right;
+    padding-top: 50px;
+    font-weight: normal;
+    float:right;
+}
+
+.welcome a{
+    margin-left: 15px;
+    font-size: 10px;
+}
+
+.footer{
+    clear: both;
+    text-align: center;
+    margin:5px;
+    color: #9d9e9e;
+    padding: 10px;
+    font-size: small;
+    width: 800px;
+    margin: 0 auto;
+
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin-top: 0;	 
+    padding-right: 15px;
+    padding-left: 15px; 
+}
+
+.book_details{
+    float:left;
+    margin-top: 10px;
+    font-size: 11px;
+}
+
+.col1{
+    vertical-align: top;
+    width: 100px;
+}
+
+.col2{
+    vertical-align: top;
+    width: 240px;
+}
+
+.col2 a{
+    font-weight: bold;
+    color:#378de5;
+    font-size: 15px;
+}
+
+.col2 p{
+    font-size: 11px;
+}
+
+.col3{
+    vertical-align: top;
+    width: 350px;}
+
+.letters{
+
+    font-weight: bold;
+    float:left;
+    height: 20px;
+    margin-left: 220px;
+    margin-top: 20px;
+    width: 680px;
+    word-spacing: 5px;
+    font-size: 15px;  
+}
+
+.letters a, a:visited{
+    margin:4px;
+}
+
+.letters a.selected_letter{
+    color:red;
+}
+
+.genres a, a:visited { 
+    padding: 3px 3px 3px 10px;
+    display: block; 
+    text-decoration: none;
+}
+.genres a:hover, a:focus {
+    background-color: #FFFFFF;
+}
+
+.genres a.selected_link{
+    color:red;
+    text-decoration: none;
+
+}
+
+a:link, a:visited {
+    color:#414958;
+    text-decoration: underline; 
+}
+
+a:hover, a:active, a:focus { 
+    color: red;
+    text-decoration: none;
+}
+
+.pager a{
+    margin-left: 5px;
+    margin-top: 50px;
+}
+
+.pager{
+    margin-left: 15px;
+    width: 100%;
+    float:left;
+    margin-bottom: 20px;
+}
+.pager .selected_page{
+    color:red;
+}
+.btn {
+    border: 0;
+    margin-right: 5px;
+    border-radius: 28px;
+    color: #ffffff;
+    font-size: 14px;
+    background: #E62615;
+    padding: 5px 13px 5px 13px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    border: 0;
+    margin-right: 5px;
+    cursor: pointer;
+    background: #d50b05;
+    text-decoration: none;
+}
+
+#loading_wrapper{
+    width: 100%;
+    display: block;
+    text-align: center;
+    position: fixed;
+    display: none;
+}
+
+#loading_wrapper p{
+    background-color: #eaeaea;
+    width: 85px;
+    height: 25px;
+    margin: 0 auto;
+}
