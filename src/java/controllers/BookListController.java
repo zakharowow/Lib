@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -17,6 +16,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean(eager = true)
 @SessionScoped
@@ -41,13 +41,10 @@ public class BookListController implements Serializable {
     private ArrayList<Book> currentBookList; // текущий список книг для отображения
     private String currentSql;// последний выполнный sql без добавления limit
     // хранит все виды поисков (по автору, по названию)
-    private static Map<String, SearchType> searchMap = new HashMap<String, SearchType>();
+    //private static Map<String, SearchType> searchMap = new HashMap<String, SearchType>();
 
     public BookListController() {
         fillBooksAll();
-        ResourceBundle bundle = ResourceBundle.getBundle("nls.properties", FacesContext.getCurrentInstance().getViewRoot().getLocale());
-        searchMap.put(bundle.getString("author_name"), searchType.AUTHOR);
-        searchMap.put(bundle.getString("book_name"), searchType.TITLE);
     }
 
     private void fillBooksBySQL(String sql) {
@@ -126,7 +123,7 @@ public class BookListController implements Serializable {
 
     public String fillBooksByGenre() {
         imitateLoading();
-        
+
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 
         submitValues(' ', 1, Integer.valueOf(params.get("genre_id")), false);
@@ -232,7 +229,7 @@ public class BookListController implements Serializable {
 
     public String fillBooksBySearch() {
         imitateLoading();
-        
+
         submitValues(' ', 1, -1, false);
 
         if (searchString.trim().length() == 0) {
@@ -277,9 +274,6 @@ public class BookListController implements Serializable {
 
     }
 
-    public Map<String, SearchType> getSearchMap() {
-        return searchMap;
-    }
 
     public SearchType getSearchType() {
         return searchType;
@@ -355,5 +349,13 @@ public class BookListController implements Serializable {
         } catch (InterruptedException ex) {
             Logger.getLogger(BookListController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void searchTypeChanged(ValueChangeEvent e) {
+        searchType = (SearchType) e.getNewValue();
+    }
+
+    public void searchStringChanged(ValueChangeEvent e) {
+        searchString = e.getNewValue().toString();
     }
 }

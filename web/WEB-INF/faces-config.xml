@@ -6,7 +6,7 @@
 
     <application>
         <resource-bundle>
-            <base-name>nls.properties</base-name>
+            <base-name>nls.messages</base-name>
             <var>msg</var>
         </resource-bundle>
     </application>

@@ -3,13 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Facelet title</title>
         <h:outputStylesheet library="css" name="main_style.css"/>
     </h:head>
     <h:body>
         <ui:composition>
+
+
             <div class="logo">
                 <h:graphicImage library="images" name="logo.png"/>
             </div>
@@ -19,34 +21,32 @@
             </div>
 
             <div class="welcome">
+
+                <ui:include src="/templates/locales.xhtml"/>
+
+                <h6>#{msg.welcome_mine} #{user.userName}</h6>
+
                 <h:form>
-                    <p>
-                        <h:commandLink action="#{localeChanger.changeLocale('en')}">
-                            <h:graphicImage library="images" name="usa-flag.jpg" title="#{msg.english}"/>
-
-                        </h:commandLink>
-
-                        <h:commandLink action = "#{localeChanger.changeLocale('ru')}">
-                            <h:graphicImage library="images" name="rus-flag.gif" title="#{msg.russian}"/>
-                        </h:commandLink>
-                    </p>
-
-
-                    <h6>#{msg.welcome_mine} #{user.userName}</h6>
                     <h6><h:commandLink action="#{loginController.exit()}" value="#{msg.exit}"/></h6>
-
                 </h:form>
             </div>
 
             <div class="search_div">
-                <h:form>
-                    <h:inputText id="search_string" styleClass="search_string" value="#{bookListController.searchString}"/>
-                    <h:commandButton styleClass="btn" value="#{msg.search}">
+                <h:form styleClass="search_form">
+                    <h:inputText id="search_string" styleClass="search_string" value="#{bookListController.searchString}" valueChangeListener="#{bookListController.searchStringChanged}">
+                        <f:ajax  event="change"/>
+                    </h:inputText>
+                    <h:commandButton value="#{msg.search}" styleClass="btn">
                         <f:ajax onevent="showProgress" execute="@form" render=":booksList @form :lettersForm :pages1 :pages2 :booksCount" listener="#{bookListController.fillBooksBySearch()}"/>
                     </h:commandButton>
-                    <h:selectOneMenu value="#{bookListController.searchType}">
-                        <f:selectItems value="#{bookListController.searchMap}"/>
+                </h:form>
+
+                <h:form styleClass="search_type"> 
+                    <h:selectOneMenu styleClass="search_type_dropdown" value="#{bookListController.searchType}" valueChangeListener="#{bookListController.searchTypeChanged}">
+                        <f:selectItems value="${searchTypeController.searchList}"/>
+                        <f:ajax event="change"/>
                     </h:selectOneMenu>
+                    
                 </h:form>
             </div>
 

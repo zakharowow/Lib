@@ -15,7 +15,7 @@ body{
     margin-top: 100px; 
     margin-left: auto; 
     margin-right: auto; 
-    padding: 20px; 
+    padding: 5px; 
     position: absolute; 
     right: 300px; 
     left: 300px; 
@@ -34,9 +34,6 @@ body{
 } 
 #id_220544{ 
     float: left; 
-    margin: 10px; 
-    position: static; 
-    width: 350px; 
 } 
 #id_220545{ 
     color: darkslategrey;
@@ -44,7 +41,6 @@ body{
     font-weight: bold;
     text-align: left;
     float: left; 
-    margin: 10px; 
     width: 330px; 
 } 
 #id_220546{ 
@@ -58,7 +54,7 @@ body{
     float: left; 
     margin: 0 auto;
     width: 330px;
-    height: 120px;
+    height: 100px;
 } 
 
 
@@ -67,8 +63,9 @@ body{
     font-size: small;
     clear: both;
     float: left; 
-    margin-top: 10px;
-    width: 330px; 
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 330px;
 } 
 
 .error{
@@ -96,3 +93,16 @@ body{
     background: #d50b05;
     text-decoration: none;
 }
+
+.welcome{
+    width: 10px;
+    font-weight: normal;
+    float: right;
+    margin-right: 50px;
+}
+
+.welcome a{
+    
+    font-size: 10px;
+}
+

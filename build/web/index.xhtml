@@ -2,52 +2,64 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>#{msg.title}</title>
-        <h:outputStylesheet library="css" name="index_style.css"/>
-        <h:outputScript library="js" name="library.js" target="head"/>
-    </h:head>
-    <h:body>
-        <noscript>
-            <h4><p>Включите JavaScript в вашем браузере, чтобы работать с приложением</p></h4>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:view locale="#{localeChanger.currentLocale}"> 
+        <h:head>
+            <title>#{msg.title}</title>
+            <h:outputStylesheet library="css" name="index_style.css"/>
+            <h:outputScript library="js" name="library.js" target="head"/>
+        </h:head>
+        <h:body>
+            <noscript>
+                <h4><p>Включите JavaScript в вашем браузере, чтобы работать с приложением</p></h4>
 
-            <style type="text/css">
-                .main { display:none; }
-                p { text-align: center; }
-            </style>
+                <style type="text/css">
+                    .main { display:none; }
+                    p { text-align: center; }
+                </style>
 
-        </noscript>
-           
-        
-        <div id="id_220542">
+            </noscript>
 
-            <div id="id_220543">
-                <h:graphicImage library="images" name="books.png"/>
-            </div>
-            <div id="id_220544">
-                <p id="id_220545">#{msg.title}</p>
 
-                <div id="id_220547">
-                    <p id="id_220546">#{msg.input_info}</p>
-                    <h:form>
-                        #{msg.user} <h:inputText id="username" value="#{user.userName}" required="true" requiredMessage="#{msg.required_message}">
-                            <f:validator validatorId="validators.LoginValidator"/>
-                            <f:ajax event="keyup" render="loginError"/>
-                        </h:inputText>
-                        <h:commandButton action="pages/books?faces-redirect=true" value="#{msg.enter}" styleClass="btn" onclick="return checkValue(this.form, '#{msg.required_message}');"/>
-                        <p><h:message id="loginError" for="username" styleClass="error"/></p>
-                    </h:form>
+            <div id="id_220542">
+
+                <div id="id_220543">
+                    <h:graphicImage library="images" name="books.png"/>
+                </div>
+
+
+                <div class="welcome">
+
+                    <ui:include src="/templates/locales.xhtml"/>
 
                 </div>
 
-                <div id="id_220548">
-                    #{msg.footer}
+
+                <div id="id_220544">
+                    <p id="id_220545">#{msg.title}</p>
+
+                    <div id="id_220547">
+                        <p id="id_220546">#{msg.input_info}</p>
+                        <h:form>
+                            #{msg.user} <h:inputText id="username" value="#{user.userName}" required="true" requiredMessage="#{msg.required_message}">
+                                <f:validator validatorId="validators.LoginValidator"/>
+                                <f:ajax event="keyup" render="loginError"/>
+                            </h:inputText>
+                            <h:commandButton action="pages/books?faces-redirect=true" value="#{msg.enter}" styleClass="btn" onclick="return checkValue(this.form, '#{msg.required_message}');"/>
+                            <p><h:message id="loginError" for="username" styleClass="error"/></p>
+                        </h:form>
+
+                    </div>
+
+
+                    <div id="id_220548">
+                        #{msg.footer}
+                    </div>
+
                 </div>
-
             </div>
-        </div>
 
-    </h:body>
-
+        </h:body>
+    </f:view> 
 </html>

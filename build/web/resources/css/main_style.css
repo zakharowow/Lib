@@ -73,25 +73,8 @@ ul{
     padding: 20px;
     float: left; 
 } 
-.search_div{
-    margin-left: 20px;
-    margin-right: 20px;
-    text-align: left;
-    vertical-align: middle;
-    width: 840px;
-    float:left;
-    background-color: #808080;
-    padding: 10px; 
-} 
-.search_string{ 
-    float: left;
-    margin-bottom: 0px; 
-    margin-left: 0px; 
-    margin-right: 10px; 
-    margin-top: 0px; 
-    width: 670px; 
-} 
 
+ 
 #id_190130{ 
     float: left; 
     text-align: center; 
@@ -137,7 +120,8 @@ li{
 }
 
 h1, h2, h3, h4, h5, h6, p {
-    margin-top: 0;	 
+    margin-top: 10px;	
+    margin-bottom: 10px;
     padding-right: 15px;
     padding-left: 15px; 
 }
@@ -207,6 +191,52 @@ h1, h2, h3, h4, h5, h6, p {
 
 }
 
+
+.search_string{ 
+    margin-bottom: 0px; 
+    margin-left: 0px; 
+    margin-right: 10px; 
+    margin-top: 0px; 
+    width: 84%; 
+}
+
+.search_div{
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: left;
+    vertical-align: middle;
+    width: 95%;
+    float:left;
+    background-color: #808080;
+    padding: 10px; 
+} 
+
+
+
+
+.search_form{
+    float:left;
+    width: 90%;
+    text-align: right;
+}
+
+.search_type{
+    float:left;
+    width: 10%;
+    text-align: right;
+    margin-top: 2px;
+}
+
+.search_type_dropdown{
+    width: 85px;
+}
+
+
+
+
+
+
+
 a:link, a:visited {
     color:#414958;
     text-decoration: underline; 
@@ -234,12 +264,13 @@ a:hover, a:active, a:focus {
 .btn {
     border: 0;
     margin-right: 5px;
-    border-radius: 28px;
+    border-radius: 15px;
     color: #ffffff;
     font-size: 14px;
     background: #E62615;
     padding: 5px 13px 5px 13px;
     text-decoration: none;
+    width:100px;
 }
 
 .btn:hover {
@@ -263,4 +294,8 @@ a:hover, a:active, a:focus {
     width: 85px;
     height: 25px;
     margin: 0 auto;
+}
+
+.locales{
+    margin-right: 15px;
 }

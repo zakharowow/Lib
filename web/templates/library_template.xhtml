@@ -4,67 +4,68 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-    <f:view locale="#{localeChanger.currentLocale}"/>
-    
-    <h:head>
-        <title><ui:insert name="title"/></title>
-        <h:outputStylesheet library="css" name="main_style.css"/>
-        <h:outputScript library="js" name="library.js" target="head"/>
-    </h:head>
-    <h:body>
-        
-        <div id="loading_wrapper">
-            <p>#{msg.loading}...</p>
-        </div>
-        
-        <div class="container">
 
-            <div class="header">
-                <ui:insert name="header">
-                    <ui:include src="header.xhtml"/>
-                </ui:insert>
+    <f:view locale="#{localeChanger.currentLocale}">
+
+        <h:head>
+            <title><ui:insert name="title"/></title>
+            <h:outputStylesheet library="css" name="main_style.css"/>
+            <h:outputScript library="js" name="library.js" target="head"/>
+        </h:head>
+        <h:body>
+
+            <div id="loading_wrapper">
+                <p>#{msg.loading}...</p>
             </div>
 
-            <div class="middle">
+            <div class="container">
 
-                <div class="left_menu">
-                    <ui:insert name="left_menu">
-                        <ui:include src="left_menu.xhtml"/>
+                <div class="header">
+                    <ui:insert name="header">
+                        <ui:include src="header.xhtml"/>
                     </ui:insert>
                 </div>
 
+                <div class="middle">
 
-
-                <div class="content">
-                    
-                    <p><strong><ui:insert name="books_count"/></strong></p>
-
-                    <div class="pager">
-                        <h:panelGroup id="pages1" layout="block"><ui:insert name="paginator"/></h:panelGroup>
+                    <div class="left_menu">
+                        <ui:insert name="left_menu">
+                            <ui:include src="left_menu.xhtml"/>
+                        </ui:insert>
                     </div>
-                    
-                    <ui:insert name="content">
-                        <ui:include src="content.xhtml"/>
-                    </ui:insert>
 
-                    <div class="pager">
-                        <h:panelGroup id="pages2" layout="block"><ui:insert name="paginator"/></h:panelGroup>
+
+
+                    <div class="content">
+
+                        <p><strong><ui:insert name="books_count"/></strong></p>
+
+                        <div class="pager">
+                            <h:panelGroup id="pages1" layout="block"><ui:insert name="paginator"/></h:panelGroup>
+                        </div>
+
+                        <ui:insert name="content">
+                            <ui:include src="content.xhtml"/>
+                        </ui:insert>
+
+                        <div class="pager">
+                            <h:panelGroup id="pages2" layout="block"><ui:insert name="paginator"/></h:panelGroup>
+                        </div>
                     </div>
+
+
+
+                    <div style="clear: both;"></div>
+
                 </div>
 
-
-
-                <div style="clear: both;"></div>
+                <div class="footer">
+                    <ui:insert name="footer">
+                        <ui:include src="footer.xhtml"/>
+                    </ui:insert>
+                </div>
 
             </div>
-
-            <div class="footer">
-                <ui:insert name="footer">
-                    <ui:include src="footer.xhtml"/>
-                </ui:insert>
-            </div>
-
-        </div>
-    </h:body>
+        </h:body>
+    </f:view>
 </html>
