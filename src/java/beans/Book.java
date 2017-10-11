@@ -3,6 +3,7 @@ package beans;
 import java.io.Serializable;
 
 public class Book implements Serializable {
+    private boolean edit;
 
     private long id;
     private String name;
@@ -104,5 +105,12 @@ public class Book implements Serializable {
         this.descr = descr;
     }
     
+    public boolean isEdit() {
+        return edit;
+    }
+
+    public void setEdit(boolean edit) {
+        this.edit = edit;
+    }
 
 }

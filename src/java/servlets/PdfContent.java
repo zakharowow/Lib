@@ -8,6 +8,7 @@ package servlets;
 import controllers.BookListController;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,18 +33,23 @@ public class PdfContent extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-             response.setContentType("application/pdf");
-             OutputStream out = response.getOutputStream();
-        try {
+        response.setContentType("application/pdf");
+
+        try (OutputStream out = response.getOutputStream()) {
             int id = Integer.valueOf(request.getParameter("id"));
+            String filename = request.getParameter("filename");
+            Boolean isSave = Boolean.valueOf(request.getParameter("save"));
+            
             BookListController searchController = (BookListController) request.getSession(false).getAttribute("bookListController");
             byte[] content = searchController.getContent(id);
             response.setContentLength(content.length);
+            if (isSave){
+            response.setHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(filename,"UTF-8")+".pdf");
+            }
             out.write(content);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

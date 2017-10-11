@@ -5,12 +5,12 @@ import database.Database;
 import enums.SearchType;
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -50,18 +50,16 @@ public class BookListController implements Serializable {
     private void fillBooksBySQL(String sql) {
 
         StringBuilder sqlBuilder = new StringBuilder(sql);
+
         currentSql = sql;
 
-        Connection conn = null;
-        Statement stm = null;
         ResultSet res = null;
 
-        try {
-            conn = Database.getConnection();
-            stm = conn.createStatement();
+        try (Connection conn = Database.getConnection();
+                Statement stmt = conn.createStatement()) {
 
             if (!requestFromPager) {
-                res = stm.executeQuery(sql);
+                res = stmt.executeQuery(sql);
                 res.last();
                 totalBooksCount = res.getRow();
                 fillPageNumbers(totalBooksCount, booksOnPage);
@@ -71,7 +69,7 @@ public class BookListController implements Serializable {
                 sqlBuilder.append(" limit ").append(selectedPageNumber * booksOnPage - booksOnPage).append(",").append(booksOnPage);
             }
 
-            res = stm.executeQuery(sqlBuilder.toString());
+            res = stmt.executeQuery(sqlBuilder.toString());
 
             currentBookList = new ArrayList<>();
 
@@ -86,8 +84,6 @@ public class BookListController implements Serializable {
                 book.setPublishDate(res.getInt("publish_year"));
                 book.setPublisher(res.getString("publisher"));
                 book.setDescr(res.getString("descr"));
-                //ook.setImage(res.getBytes("image"));
-                //book.setContent(res.getBytes("content"));
                 currentBookList.add(book);
             }
 
@@ -95,19 +91,64 @@ public class BookListController implements Serializable {
             Logger.getLogger(BookListController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                if (stm != null) {
-                    stm.close();
-                }
+
                 if (res != null) {
                     res.close();
                 }
-                if (conn != null) {
-                    conn.close();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(BookListController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public String updateBooks() throws SQLException {
+        imitateLoading();
+
+        ResultSet res = null;
+
+        try (Connection conn = Database.getConnection();
+                PreparedStatement prepStmt = conn.prepareStatement("update book set name=?, isbn=?, page_count=?, publish_year=?, descr=? where id=?")) {
+
+            for (Book book : currentBookList) {
+                if(!book.isEdit()) continue;
+                prepStmt.setString(1, book.getName());
+                prepStmt.setString(2, book.getIsbn());
+//                prepStmt.setString(3, book.getAuthor());
+                prepStmt.setInt(3, book.getPageCount());
+                prepStmt.setInt(4, book.getPublishDate());
+//                prepStmt.setString(6, book.getPublisher());
+                prepStmt.setString(5, book.getDescr());
+                prepStmt.setLong(6, book.getId());
+                prepStmt.addBatch();
+            }
+
+            prepStmt.executeBatch();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BookListController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (res != null) {
+                    res.close();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(BookListController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        switchEditMode();
+        return "books";
+    }
+
+    private boolean editMode;
+
+    public boolean isEditMode() {
+        return editMode;
+    }
+
+    public void switchEditMode() {
+        editMode = !editMode;
     }
 
     private void fillBooksAll() {
@@ -119,6 +160,13 @@ public class BookListController implements Serializable {
         this.selectedPageNumber = selectedPageNumber;
         this.selectedGenreId = selectedGenreId;
         this.requestFromPager = requestFromPager;
+    }
+
+    public void cancelEdit() {
+        editMode = false;
+        for (Book book : currentBookList) {
+            book.setEdit(false);
+        }
     }
 
     public String fillBooksByGenre() {
@@ -151,14 +199,11 @@ public class BookListController implements Serializable {
     }
 
     public byte[] getContent(int id) {
-        Statement stmt = null;
         ResultSet rs = null;
-        Connection conn = null;
 
         byte[] content = null;
-        try {
-            conn = Database.getConnection();
-            stmt = conn.createStatement();
+        try (Connection conn = Database.getConnection();
+                Statement stmt = conn.createStatement()) {
 
             rs = stmt.executeQuery("select content from book where id=" + id);
             while (rs.next()) {
@@ -169,15 +214,11 @@ public class BookListController implements Serializable {
                     .getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                if (stmt != null) {
-                    stmt.close();
-                }
+
                 if (rs != null) {
                     rs.close();
                 }
-                if (conn != null) {
-                    conn.close();
-                }
+
             } catch (SQLException ex) {
                 Logger.getLogger(Book.class
                         .getName()).log(Level.SEVERE, null, ex);
@@ -189,15 +230,12 @@ public class BookListController implements Serializable {
     }
 
     public byte[] getImage(int id) {
-        Statement stmt = null;
         ResultSet rs = null;
-        Connection conn = null;
 
         byte[] image = null;
 
-        try {
-            conn = Database.getConnection();
-            stmt = conn.createStatement();
+        try (Connection conn = Database.getConnection();
+                Statement stmt = conn.createStatement()) {
 
             rs = stmt.executeQuery("select image from book where id=" + id);
             while (rs.next()) {
@@ -209,15 +247,11 @@ public class BookListController implements Serializable {
                     .getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                if (stmt != null) {
-                    stmt.close();
-                }
+
                 if (rs != null) {
                     rs.close();
                 }
-                if (conn != null) {
-                    conn.close();
-                }
+
             } catch (SQLException ex) {
                 Logger.getLogger(Book.class
                         .getName()).log(Level.SEVERE, null, ex);
@@ -273,7 +307,6 @@ public class BookListController implements Serializable {
         }
 
     }
-
 
     public SearchType getSearchType() {
         return searchType;
@@ -358,4 +391,5 @@ public class BookListController implements Serializable {
     public void searchStringChanged(ValueChangeEvent e) {
         searchString = e.getNewValue().toString();
     }
+
 }

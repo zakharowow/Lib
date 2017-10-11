@@ -133,7 +133,6 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .col1{
-    vertical-align: top;
     width: 100px;
 }
 
@@ -298,4 +297,25 @@ a:hover, a:active, a:focus {
 
 .locales{
     margin-right: 15px;
+}
+
+.col2 a.content_link{
+    
+    font-size: 11px;
+    text-decoration: underline;
+    margin-left: 5px;
+    font-weight: bold
+}
+
+.col2 a.save_link{
+    
+    font-size: 11px;
+    text-decoration: underline;
+    margin-left: 15px;
+    font-weight: bold
+}
+
+.descr_edit{
+    width: 100%;
+    height: 150px;
 }
