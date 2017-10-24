@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="MyLibrary_jsf_2" default="default" basedir=".">
-    <description>Builds, tests, and runs the project MyLibrary_jsf_2.</description>
+<project name="Repository_Lib" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Repository_Lib.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 

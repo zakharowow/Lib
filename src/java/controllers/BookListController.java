@@ -30,6 +30,7 @@ public class BookListController implements Serializable {
             + "inner join genre g on b.genre_id=g.id inner join publisher p on b.publisher_id=p.id ";
 
     private boolean requestFromPager;
+    private int pageCount;
     private int booksOnPage = 2;
     private int selectedGenreId; // выбранный жанр
     private char selectedLetter; // выбранная буква алфавита
@@ -111,7 +112,9 @@ public class BookListController implements Serializable {
                 PreparedStatement prepStmt = conn.prepareStatement("update book set name=?, isbn=?, page_count=?, publish_year=?, descr=? where id=?")) {
 
             for (Book book : currentBookList) {
-                if(!book.isEdit()) continue;
+                if (!book.isEdit()) {
+                    continue;
+                }
                 prepStmt.setString(1, book.getName());
                 prepStmt.setString(2, book.getIsbn());
 //                prepStmt.setString(3, book.getAuthor());
@@ -288,14 +291,23 @@ public class BookListController implements Serializable {
 
     public void selectPage() {
         imitateLoading();
+        cancelEdit();
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         selectedPageNumber = Integer.valueOf(params.get("page_number"));
         requestFromPager = true;
         fillBooksBySQL(currentSql);
     }
 
+    public void booksOnPageChanged(ValueChangeEvent e) {
+        imitateLoading();
+        cancelEdit();
+        requestFromPager = false;
+        booksOnPage = Integer.valueOf(e.getNewValue().toString());
+        selectedPageNumber = 1;
+        fillBooksBySQL(currentSql);
+    }
+
     private void fillPageNumbers(long totalBooksCount, int booksCountOnPage) {
-        int pageCount = 0;
         if (totalBooksCount > 0) {
             int fpc = (int) totalBooksCount / booksCountOnPage;
             pageCount = (int) totalBooksCount % booksCountOnPage == 0 ? fpc : fpc + 1;

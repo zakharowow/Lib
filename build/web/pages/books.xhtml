@@ -66,10 +66,10 @@
                                         <h:outputText value="#{b.name}"/>
                                         <f:param name="id" value="#{b.id}"/>
                                     </h:outputLink>
-                                    
+
                                     <h:inputText value="#{b.name}" styleClass="name_edit" rendered="#{bookListController.editMode and b.edit}"/>
                                 </p>
-                                
+
                                 <p>
                                     <strong>#{msg.author_name} </strong>
                                     <h:outputText value="#{b.author}" rendered="#{!b.edit}"/>
@@ -136,13 +136,19 @@
                         <h:column>
                             <h:selectBooleanCheckbox value="#{b.edit}" rendered="#{!bookListController.editMode}"/>
                         </h:column>
-                        
+
                     </h:dataTable>
                 </h:form>
             </ui:define>
 
             <ui:define name="paginator">
-                <h:form rendered="#{bookListController.totalBooksCount>bookListController.booksOnPage}">
+                <h:form>
+                    <h:selectOneMenu value="#{bookListController.booksOnPage}" valueChangeListener="#{bookListController.booksOnPageChanged}">
+                        <f:selectItem itemValue="5" />
+                        <f:selectItem itemValue="10" />
+                        <f:selectItem itemValue="30" />
+                        <f:ajax event="change" execute="@form" onevent="showProgress" render=":booksForm :booksForm:booksList :pages1 :pages2"  />
+                    </h:selectOneMenu>
                     #{msg.pager}
 
                     <ui:repeat value="#{bookListController.pageNumbers}" var="pageNumber" >
