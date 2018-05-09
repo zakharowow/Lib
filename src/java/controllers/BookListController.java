@@ -275,6 +275,7 @@ public class BookListController implements Serializable {
         }
 
         StringBuilder sql = new StringBuilder(sqlRequest);
+        sql.append("where lower(a.fio) like '%" + searchString.toLowerCase() + "%' order by b.name ");
         switch (searchType) {
             case AUTHOR:
                 sql.append("where lower(a.fio) like '%" + searchString.toLowerCase() + "%' order by b.name ");
